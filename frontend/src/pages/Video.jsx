@@ -152,7 +152,7 @@ const Video = () => {
   const dispatch = useDispatch();
   const [channel, setChannel] = useState({});
   const path = useLocation().pathname.split("/")[2];
-  console.log(path, "jhg");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -162,7 +162,7 @@ const Video = () => {
         );
         setChannel(channelRes.data);
         dispatch(fetchSuccess(videoRes.data));
-        console.log(videoRes, "jhg,.");
+        await axios.get(`/videos/view/${path}`);
       } catch (err) {
         console.log(err);
       }
@@ -180,12 +180,13 @@ const Video = () => {
   };
 
   const handleSub = async () => {
-    currentUser.subscribedUsers.includes(channel._id)
-      ? await axios.put(`/users/unsub/${channel._id}`)
-      : await axios.put(`/users/sub/${channel._id}`);
-    dispatch(subscription(channel._id));
+    if (currentUser) {
+      currentUser.subscribedUsers.includes(channel._id)
+        ? await axios.put(`/users/unsub/${channel._id}`)
+        : await axios.put(`/users/sub/${channel._id}`);
+      dispatch(subscription(channel._id));
+    }
   };
-  console.log(currentVideo, "kk");
 
   return (
     <Container>
@@ -233,11 +234,13 @@ const Video = () => {
               <Description>{currentVideo.desc}</Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe onClick={handleSub}>
-            {currentUser.subscribedUsers?.includes(channel._id)
-              ? "SUBSCRIBED"
-              : "SUBSCRIBE"}
-          </Subscribe>
+          {currentUser && (
+            <Subscribe onClick={handleSub}>
+              {currentUser.subscribedUsers?.includes(channel._id)
+                ? "SUBSCRIBED"
+                : "SUBSCRIBE"}
+            </Subscribe>
+          )}
         </Channel>
         <Hr />
         <Comments videoId={currentVideo._id} />

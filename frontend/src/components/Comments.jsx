@@ -99,7 +99,7 @@ const Comments = ({ videoId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`/comments/${videoId}`, {
+      const res = await axios.post(`/comments/`, {
         videoId: videoId,
         desc: newComment,
       });
@@ -119,30 +119,35 @@ const Comments = ({ videoId }) => {
   return (
     <Container>
       <CommentBox>
-        <NewComment>
-          <Avatar src={currentUser.img} />
-          {!showInput && (
-            <Input
-              placeholder="Add a comment..."
-              onClick={() => setShowInput(true)}
-            />
-          )}
-        </NewComment>
-        {showInput && (
+        {currentUser && (
           <>
-            <Input
-              placeholder="Commenting publicly as {currentUser.name}"
-              onChange={(e) => setNewComment(e.target.value)}
-            />
-            <Buttons>
-              <Button1 onClick={() => setShowInput(false)}>Cancle</Button1>{" "}
-              <Button disabled={allowSubmit} onClick={handleSubmit()}>
-                Submit
-              </Button>
-            </Buttons>
+            <NewComment>
+              <Avatar src={currentUser.img} />
+              {!showInput && (
+                <Input
+                  placeholder="Add a comment..."
+                  onClick={() => setShowInput(true)}
+                />
+              )}
+            </NewComment>
+            {showInput && (
+              <>
+                <Input
+                  placeholder="Commenting publicly as {currentUser.name}"
+                  onChange={(e) => setNewComment(e.target.value)}
+                />
+                <Buttons>
+                  <Button1 onClick={() => setShowInput(false)}>Cancle</Button1>{" "}
+                  <Button disabled={allowSubmit} onClick={handleSubmit}>
+                    Submit
+                  </Button>
+                </Buttons>
+              </>
+            )}
           </>
         )}
       </CommentBox>
+
       {comments.map((comment) => (
         <Comment key={comment._id} comment={comment} />
       ))}
