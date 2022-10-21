@@ -7,6 +7,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
+import cors from "cors";
+import ExpressMongoSanitize from "express-mongo-sanitize";
 
 const app = express();
 dotenv.config();
@@ -23,6 +25,8 @@ const connect = () => {
 };
 
 //middlewares
+app.use(ExpressMongoSanitize());
+app.use(cors());
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());
