@@ -5,10 +5,6 @@ import Card from "./Card";
 
 const Container = styled.div`
   flex: 2;
-
-  @media (max-width: 575.98px) {
-    visibility: hidden;
-  }
 `;
 
 const Recommendation = ({ tags }) => {
