@@ -7,12 +7,11 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../firebase";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import UploadIcon from "@mui/icons-material/Upload";
 import CircularProgress from "@mui/material/CircularProgress";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
+import { axiosInstance } from "../utils/axios";
 
 const Container = styled.div`
   width: 100%;
@@ -124,9 +123,6 @@ const Userbox = ({ setOpenUserbox }) => {
   const [defaultImage, setDefaultImage] = useState(currentUser.img);
   const [imgPerc, setImgPerc] = useState(0);
   const [inputs, setInputs] = useState({});
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   const [err, setErr] = useState("");
 

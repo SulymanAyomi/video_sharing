@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { format } from "timeago.js";
-import axios from "axios";
+import { axiosInstance } from "../utils/axios";
 
 const Container = styled.div`
   display: flex;
@@ -53,9 +53,6 @@ const Text = styled.span`
 
 const Comment = ({ comment }) => {
   const [channel, setChannel] = useState({});
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   useEffect(() => {
     const fetchComment = async () => {

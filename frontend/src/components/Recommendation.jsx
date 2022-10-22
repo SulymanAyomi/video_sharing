@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { axiosInstance } from "../utils/axios";
 import Card from "./Card";
 
 const Container = styled.div`
@@ -13,9 +13,6 @@ const Container = styled.div`
 
 const Recommendation = ({ tags }) => {
   const [videos, setVideos] = useState([]);
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   useEffect(() => {
     const fetchVideos = async () => {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import styled from "styled-components";
-import axios from "axios";
-import { use, useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { axiosInstance } from "../utils/axios";
 
 const Container = styled.div`
   display: flex;
@@ -16,14 +16,15 @@ const Container = styled.div`
 const Home = ({ type }) => {
   const [videos, setVideos] = useState([]);
   const tags = useLocation().search;
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axiosInstance.get(`videos/${type}` + tags);
-      setVideos(res.data);
+      try {
+        const res = await axiosInstance.get(`videos/${type}` + tags);
+        setVideos(res.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchVideos();
   }, [type, tags]);

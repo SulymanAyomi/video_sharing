@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import logo from "./../logo192.png";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
@@ -10,17 +9,18 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import Comments from "../components/Comments";
 import Recommendation from "../components/Recommendation";
 import { format } from "timeago.js";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { dislike, fetchSuccess, like } from "../redux/videoSlice";
 import { subscription } from "../redux/userSlice";
+import { axiosInstance } from "../utils/axios";
 
 const Container = styled.div`
   display: flex;
   gap: 24px;
   @media (max-width: 768px) {
     font-size: 8px;
+    flex-direction: column;
   }
 `;
 
@@ -152,9 +152,6 @@ const Video = () => {
   const dispatch = useDispatch();
   const [channel, setChannel] = useState({});
   const path = useLocation().pathname.split("/")[2];
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -170,7 +167,7 @@ const Video = () => {
       }
     };
     fetchData();
-  }, [path]);
+  }, [path, dispatch]);
 
   const handleLike = async () => {
     await axiosInstance.put(`/users/like/${currentVideo._id}`);

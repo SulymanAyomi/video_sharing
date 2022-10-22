@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
-import axios from "axios";
+import { axiosInstance } from "../utils/axios";
 
 const Container = styled.div`
   display: flex;
@@ -80,9 +80,6 @@ const SignIn = () => {
   const [err1, setErr1] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   const handleLogin = async (e) => {
     e.preventDefault();

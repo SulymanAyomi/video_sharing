@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import logo from "./../logo192.png";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { format } from "timeago.js";
+import { axiosInstance } from "../utils/axios";
 
 const Container = styled.div`
   --width: calc(100% / 4);
@@ -92,9 +91,6 @@ const Info = styled.div`
 
 const Card = ({ type, video }) => {
   const [channel, setChannel] = useState({});
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   useEffect(() => {
     const fetchChannel = async () => {

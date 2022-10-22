@@ -7,8 +7,8 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../firebase";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../utils/axios";
 
 const Container = styled.div`
   width: 100%;
@@ -87,9 +87,6 @@ const Upload = ({ setOpen }) => {
   const [videoPerc, setVideoPerc] = useState(0);
   const [inputs, setInputs] = useState({});
   const [tags, setTags] = useState([]);
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   const navigate = useNavigate();
 

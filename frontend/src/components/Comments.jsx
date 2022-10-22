@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import { axiosInstance } from "../utils/axios";
 
 const Container = styled.div``;
 const CommentBox = styled.div`
@@ -85,9 +85,6 @@ const Comments = ({ videoId }) => {
   const [showInput, setShowInput] = useState(false);
   const [allowSubmit, setAllowSubmit] = useState(true);
   const [newComment, setNewComment] = useState("");
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   useEffect(() => {
     const fetchComments = async () => {
