@@ -80,12 +80,15 @@ const SignIn = () => {
   const [err1, setErr1] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   const handleLogin = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post("/auth/signin", { name, password });
+      const res = await axiosInstance.post("/auth/signin", { name, password });
       dispatch(loginSuccess(res.data));
       navigate("/");
     } catch (err) {
@@ -98,7 +101,11 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post("/auth/signup", { name, password, email });
+      const res = await axiosInstance.post("/auth/signup", {
+        name,
+        password,
+        email,
+      });
       dispatch(loginSuccess(res.data));
       navigate("/");
     } catch (err) {
@@ -111,7 +118,7 @@ const SignIn = () => {
     dispatch(loginStart());
     await signInWithPopup(auth, provider)
       .then((result) => {
-        axios
+        axiosInstance
           .post("/auth/google", {
             name: result.user.displayName,
             email: result.user.email,

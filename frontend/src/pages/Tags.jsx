@@ -16,20 +16,25 @@ const Container = styled.div`
 const Tags = () => {
   const [videos, setVideos] = useState([]);
   const query = useLocation().search;
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`/videos/search${query}`);
+      const res = await axiosInstance.get(`/videos/search${query}`);
       setVideos(res.data);
     };
     fetchVideos();
   }, [query]);
 
-  return <Container>
-    {videos.map(video=>(
-      <Card key={video._id} video={video}/>
-    ))}
-  </Container>;
+  return (
+    <Container>
+      {videos.map((video) => (
+        <Card key={video._id} video={video} />
+      ))}
+    </Container>
+  );
 };
 
 export default Tags;
