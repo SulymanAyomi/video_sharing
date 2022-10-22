@@ -16,10 +16,13 @@ const Container = styled.div`
 const Home = ({ type }) => {
   const [videos, setVideos] = useState([]);
   const tags = useLocation().search;
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`videos/${type}` + tags);
+      const res = await axiosInstance.get(`videos/${type}` + tags);
       setVideos(res.data);
     };
     fetchVideos();

@@ -85,11 +85,14 @@ const Comments = ({ videoId }) => {
   const [showInput, setShowInput] = useState(false);
   const [allowSubmit, setAllowSubmit] = useState(true);
   const [newComment, setNewComment] = useState("");
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`/comments/${videoId}`);
+        const res = await axiosInstance.get(`/comments/${videoId}`);
         setComments(res.data);
       } catch (err) {}
     };
@@ -99,7 +102,7 @@ const Comments = ({ videoId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`/comments/`, {
+      const res = await axiosInstance.post(`/comments/`, {
         videoId: videoId,
         desc: newComment,
       });

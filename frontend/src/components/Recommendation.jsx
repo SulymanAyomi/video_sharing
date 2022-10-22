@@ -13,10 +13,13 @@ const Container = styled.div`
 
 const Recommendation = ({ tags }) => {
   const [videos, setVideos] = useState([]);
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`/videos/tags?tags=${tags}`);
+      const res = await axiosInstance.get(`/videos/tags?tags=${tags}`);
       setVideos(res.data);
     };
     fetchVideos();

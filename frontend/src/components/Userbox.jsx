@@ -124,6 +124,9 @@ const Userbox = ({ setOpenUserbox }) => {
   const [defaultImage, setDefaultImage] = useState(currentUser.img);
   const [imgPerc, setImgPerc] = useState(0);
   const [inputs, setInputs] = useState({});
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   const [err, setErr] = useState("");
 
@@ -180,7 +183,9 @@ const Userbox = ({ setOpenUserbox }) => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.put(`users/${currentUser._id}`, { ...inputs });
+      const res = await axiosInstance.put(`users/${currentUser._id}`, {
+        ...inputs,
+      });
       dispatch(loginSuccess(res.data));
       setOpenUserbox(false);
     } catch (err) {
