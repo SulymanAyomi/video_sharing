@@ -193,62 +193,67 @@ const Video = () => {
         <VideoWrapper>
           <VideoFrame src={currentVideo?.videoUrl} controls />
         </VideoWrapper>
-        <Title>{currentVideo?.title}</Title>
-        <Details>
-          <Info>
-            {currentVideo?.views} views • {format(currentVideo?.createdAt)}
-          </Info>
-          <Buttons>
-            <Button onClick={handleLike}>
-              {currentVideo?.likes?.includes(currentUser?._id) ? (
-                <ThumbUpIcon className="icsm" />
-              ) : (
-                <ThumbUpOutlinedIcon className="icsm" />
-              )}{" "}
-              {currentVideo?.likes?.length}
-            </Button>
-            <Button onClick={handleDislike}>
-              {currentVideo?.dislikes?.includes(currentUser?._id) ? (
-                <ThumbDownIcon className="icsm" />
-              ) : (
-                <ThumbDownOffAltOutlinedIcon className="icsm" />
-              )}{" "}
-              Dislike
-            </Button>
-            <Button>
-              <ReplyOutlinedIcon className="icsm" /> Share
-            </Button>
-            <Button>
-              <AddTaskOutlinedIcon className="icsm" /> Save
-            </Button>
-          </Buttons>
-        </Details>
+        {currentVideo && (
+          <>
+            {" "}
+            <Title>{currentVideo?.title}</Title>
+            <Details>
+              <Info>
+                {currentVideo?.views} views • {format(currentVideo?.createdAt)}
+              </Info>
+              <Buttons>
+                <Button onClick={handleLike}>
+                  {currentVideo?.likes?.includes(currentUser?._id) ? (
+                    <ThumbUpIcon className="icsm" />
+                  ) : (
+                    <ThumbUpOutlinedIcon className="icsm" />
+                  )}{" "}
+                  {currentVideo?.likes?.length}
+                </Button>
+                <Button onClick={handleDislike}>
+                  {currentVideo?.dislikes?.includes(currentUser?._id) ? (
+                    <ThumbDownIcon className="icsm" />
+                  ) : (
+                    <ThumbDownOffAltOutlinedIcon className="icsm" />
+                  )}{" "}
+                  Dislike
+                </Button>
+                <Button>
+                  <ReplyOutlinedIcon className="icsm" /> Share
+                </Button>
+                <Button>
+                  <AddTaskOutlinedIcon className="icsm" /> Save
+                </Button>
+              </Buttons>
+            </Details>{" "}
+          </>
+        )}
         <Hr />
         <Channel>
           {channel && (
             <ChannelInfo>
-              <Image src={channel.img} />
+              <Image src={channel?.img} />
               <ChannelDetail>
-                <ChannelName>{channel.name}</ChannelName>
+                <ChannelName>{channel?.name}</ChannelName>
                 <ChannelCounter>
-                  {channel.subscribers} subscriber
+                  {channel?.subscribers} subscriber
                 </ChannelCounter>
-                <Description>{currentVideo.desc}</Description>
+                <Description>{currentVideo?.desc}</Description>
               </ChannelDetail>
             </ChannelInfo>
           )}
           {currentUser && (
             <Subscribe onClick={handleSub}>
-              {currentUser.subscribedUsers?.includes(channel._id)
+              {currentUser?.subscribedUsers?.includes(channel?._id)
                 ? "SUBSCRIBED"
                 : "SUBSCRIBE"}
             </Subscribe>
           )}
         </Channel>
         <Hr />
-        <Comments videoId={currentVideo._id} />
+        <Comments videoId={currentVideo?._id} />
       </Content>
-      <Recommendation tags={currentVideo.tags} />
+      <Recommendation tags={currentVideo?.tags} />
     </Container>
   );
 };
