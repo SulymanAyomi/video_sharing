@@ -23,7 +23,7 @@ const Image = styled.img`
   background-color: #999;
   flex: 1;
   @media (max-width: 575.98px) {
-    height: 100px;
+    height: ${(props) => (props.type === "sm" ? "190px" : "100px")};
   }
 `;
 

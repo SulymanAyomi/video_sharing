@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import { useSelector } from "react-redux";
 import NotFound from "./components/Notfound";
 import Search from "./pages/Search";
+import { createBrowserHistory } from "history";
 
 const Container = styled.div``;
 const Footer = styled.footer`
@@ -44,6 +45,10 @@ const Wrapper = styled.div`
     min-height: calc(100vh - 34px);
   }
 `;
+
+export const history = createBrowserHistory({
+  basename: process.env.PUBLIC_URL,
+});
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
