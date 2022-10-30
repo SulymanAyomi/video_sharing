@@ -56,8 +56,8 @@ function App() {
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme} sideNav={sideNav}>
-      <Container>
-        <BrowserRouter>
+      <BrowserRouter basename="/ourtube">
+        <Container>
           <Menu
             darkMode={darkMode}
             setDarkMode={setDarkMode}
@@ -85,14 +85,14 @@ function App() {
               </Routes>
             </Wrapper>
           </Main>
-        </BrowserRouter>
-      </Container>
-      <Footer>
-        &COPY; Copyright 2022{" "}
-        <Ayomi href="https://sulymanayomi.github.io/Ayomi/">
-          Sulyman Ayomi
-        </Ayomi>
-      </Footer>
+          <Footer>
+            &COPY; Copyright 2022{" "}
+            <Ayomi href="https://sulymanayomi.github.io/Ayomi/">
+              Sulyman Ayomi
+            </Ayomi>
+          </Footer>
+        </Container>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

@@ -162,7 +162,7 @@ const Video = () => {
         );
         setChannel(channelRes.data);
         dispatch(fetchSuccess(videoRes.data));
-        window.title = currentVideo?.title;
+        window.title = videoRes?.data.title;
       } catch (err) {
         console.log(err);
       }
